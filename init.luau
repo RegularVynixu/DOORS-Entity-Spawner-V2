@@ -34,7 +34,7 @@ local GameStats = ReplicatedStorage:WaitForChild("GameStats") :: Folder
 local CurrentRooms = workspace:WaitForChild("CurrentRooms") :: Folder
 
 local Assets = {
-	Repentance = LoadCustomInstance("https://github.com/RegularVynixu/Utilities/raw/refs/heads/main/Doors/Entity%20Spawner/Assets/Repentance.rbxm")
+	Repentance = LoadCustomInstance("https://github.com/RegularVynixu/DOORS-Entity-Spawner-V2/raw/main/Assets/Repentance.rbxm")
 }
 local Modules = {
 	Module_Events = require(ReplicatedStorage.ModulesClient.Module_Events :: ModuleScript),
