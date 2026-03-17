@@ -26,8 +26,8 @@ local LocalPlayer = Players.LocalPlayer
 local Character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
 local Humanoid = Character:WaitForChild("Humanoid")
 local CollisionPart = Character:WaitForChild("CollisionPart", 3) or Character:WaitForChild("Collision", 3)
-local Camera = workspace.CurrentCamera
 local PlayerGui = LocalPlayer:WaitForChild("PlayerGui")
+local Camera = workspace.CurrentCamera
 
 local Remotes = ReplicatedStorage:WaitForChild("RemotesFolder") :: Folder
 local GameStats = ReplicatedStorage:WaitForChild("GameStats") :: Folder
@@ -177,6 +177,8 @@ local function OnCharacterAdded(char: Model)
 	Character = char
 	Humanoid = char:WaitForChild("Humanoid")
     CollisionPart = char:WaitForChild("CollisionPart", 3) or char:WaitForChild("Collision", 3)
+
+    Modules.Main_Game = require(PlayerGui:WaitForChild("MainUI").Initiator.Main_Game :: ModuleScript)
 end
 
 local function GetCurrentRoom(latest: boolean): Model?
