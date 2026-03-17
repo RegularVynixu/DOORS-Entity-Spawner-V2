@@ -28,7 +28,7 @@ DOORS Entity Spawner V2 is open source, completely free to use and it still offe
 
 ## Usage
 
-Creating an entity template:
+### Creating an entity template:
 
 ```lua
 local MyEntity = Spawner:Create({
@@ -85,7 +85,7 @@ local MyEntity = Spawner:Create({
 })
 ```
 
-Utilising the debug callbacks:
+### Utilising the debug callbacks:
 
 ```lua
 MyEntity:SetCallback("OnSpawned", function()
@@ -137,7 +137,7 @@ MyEntity:SetCallback("OnDamagePlayer", function(newHealth: number)
 end)
 ```
 
-Running your entity in-game:
+### Running your entity in-game:
 
 ```lua
 MyEntity:Run(true) -- creates & runs a copy of your entity template
