@@ -5,6 +5,7 @@ Made **DOORS Entity Spawner V2** a standalone repository because it's cleaner.
 ### Additions
 - Added `Clear` method
 - Added `Unload` method
+- Added a new example with client syncing
 
 ### Changes
 - Refactored most of the code
