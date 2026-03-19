@@ -18,11 +18,11 @@ DOORS Entity Spawner V2 is open source, completely free to use and it still offe
 * Light interaction (flicker, break, restore)
 * Environmental effects (earthquake, camera shake)
 * Crucifix support
-* Debug callbacks to control entity behaviour and player/environment interactions
+* Debug callbacks to control entity behavior and player/environment interactions
 
 ## Limitations
 
-* Entities are clientsided only
+* Entities are client-sided only
 * Multiplayer experiences/game modes require manual client syncing
 * Health is managed client-sided, so any server-side health updates may break immersion
 
@@ -85,7 +85,7 @@ local MyEntity = Spawner:Create({
 })
 ```
 
-### Utilising the debug callbacks:
+### Utilizing the debug callbacks:
 
 ```lua
 MyEntity:SetCallback("OnSpawned", function()
