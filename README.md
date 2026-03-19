@@ -11,20 +11,20 @@ DOORS Entity Spawner V2 is open source, completely free to use and it still offe
 ## Features
 
 * Custom entities
-* Fully configurable behaviour
+* Fully configurable behavior
 * Movement settings (speed, delay, reversed)
 * Damage and death handling
 * Rebounding mechanics (ambush, blitz)
 * Light interaction (flicker, break, restore)
 * Environmental effects (earthquake, camera shake)
-* Crucifixion support
+* Crucifix support
 * Debug callbacks to control entity behaviour and player/environment interactions
 
 ## Limitations
 
 * Entities are clientsided only
-* Multiplayer experiences/gamemodes require manual client syncing
-* Health is managed clientside, so any serverside health updates may break immersion
+* Multiplayer experiences/game modes require manual client syncing
+* Health is managed client-sided, so any server-side health updates may break immersion
 
 ## Usage
 
