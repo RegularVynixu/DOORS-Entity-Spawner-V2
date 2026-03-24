@@ -25,7 +25,7 @@ local TweenService = game:GetService("TweenService")
 local LocalPlayer = Players.LocalPlayer
 local Character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
 local Humanoid = Character:WaitForChild("Humanoid")
-local CollisionPart = Character:WaitForChild("CollisionPart", 3) or Character:WaitForChild("Collision", 3)
+local RootPart = Character.PrimaryPart or Character:FindFirstChildWhichIsA("BasePart", true)
 local PlayerGui = LocalPlayer:WaitForChild("PlayerGui")
 local Camera = workspace.CurrentCamera
 
@@ -176,7 +176,7 @@ local function OnCharacterAdded(char: Model)
 
 	Character = char
 	Humanoid = char:WaitForChild("Humanoid")
-    CollisionPart = char:WaitForChild("CollisionPart", 3) or char:WaitForChild("Collision", 3)
+    RootPart = char.PrimaryPart or char:FindFirstChildWhichIsA("BasePart")
 
     Modules.Main_Game = require(PlayerGui:WaitForChild("MainUI").Initiator.Main_Game :: ModuleScript)
 end
@@ -321,7 +321,7 @@ local function CrucifixEntity(entity: any, tool: Tool)
 	repentance:PivotTo(CFrame.new(result.Position))
 	crucifix.CFrame = toolPivot
 	repentance.Entity.CFrame = entityPivot
-    crucifix.BodyPosition.Position = (CollisionPart.CFrame * CFrame.new(0.5, 3, -6)).Position
+    crucifix.BodyPosition.Position = (RootPart.CFrame * CFrame.new(0.5, 3, -6)).Position
 	repentance.Parent = workspace
 	sound:Play()
 
@@ -788,7 +788,7 @@ Module.Run = function(self, entity: any, copyEntity: boolean)
             if model:GetAttribute("Paused") then continue end
             
             local origin = model:GetPivot().Position
-            local charOrigin = CollisionPart.Position
+            local charOrigin = RootPart.Position
             
             -- In Sight detection
             local inSight = false
