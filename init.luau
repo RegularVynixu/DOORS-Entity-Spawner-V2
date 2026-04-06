@@ -15,6 +15,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utiliti
 
 -- \\ Services // --
 
+local CollectionService = game:GetService("CollectionService")
 local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local RunService = game:GetService("RunService")
@@ -80,7 +81,8 @@ local CONST = {
 			Damage = {
 				Enabled = true,
 				Range = 40,
-				Amount = 125
+				Amount = 125,
+                IgnoreHiding = false
 			},
 			Rebounding = {
 				Enabled = true,
@@ -795,7 +797,7 @@ Module.Run = function(self, entity: any, copyEntity: boolean)
             if (charOrigin - origin).Magnitude <= config.Damage.Range then
                 local params = RaycastParams.new()
                 params.FilterType = Enum.RaycastFilterType.Exclude
-                params.FilterDescendantsInstances = {Character, model}
+                params.FilterDescendantsInstances = {Character, model, CollectionService:GetTagged("HidingSpot")}
 
                 inSight = workspace:Raycast(origin, charOrigin - origin, params) == nil
             end
@@ -877,7 +879,7 @@ Module.Run = function(self, entity: any, copyEntity: boolean)
                     damage.Enabled
                     and damage.Range > 0
                     and Humanoid.Health > 0
-                    and not Character:GetAttribute("Hiding")
+                    and (not Character:GetAttribute("Hiding") or damage.IgnoreHiding)
                     and model:GetAttribute("Damage")
                     and not model:GetAttribute("BeingBanished")
                     and (charOrigin - origin).Magnitude <= damage.Range
