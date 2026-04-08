@@ -1053,8 +1053,11 @@ if not getgenv()._internal_vynixu_entity_spawner then
 	
 	workspace.DescendantRemoving:Connect(function(instance: Instance)
 		if instance.Name == "PathfindNodes" then
-			instance:Clone().Parent = instance.Parent
-		end
+            local latestRoom = GetCurrentRoom(true)
+            if latestRoom then
+                instance:Clone().Parent = latestRoom
+            end
+        end
 	end)
 end
 
