@@ -1,3 +1,11 @@
+## 2026-04-06
+
+### Additions
+- Added a new config option `IgnoreHiding` under Damage; makes entities detect players while in hiding spots.
+
+### Changes
+- Make use of character PrimaryPart, rather than Collision(Part) specifically
+
 ## 2026-03-16
 
 Made **DOORS Entity Spawner V2** a standalone repository because it's cleaner.
@@ -13,11 +21,3 @@ Made **DOORS Entity Spawner V2** a standalone repository because it's cleaner.
 - `Run` method now supports second argument `<boolean> copyEntity`
 - Slightly improved error / warning output handling
 - Entity muted upon being banished through crucifixion
-
-## 2026-04-06
-
-### Additions
-- Added a new config option `IgnoreHiding` under Damage; makes entities detect players while in hiding spots.
-
-### Changes
-- Make use of character PrimaryPart, rather than Collision(Part) specifically
