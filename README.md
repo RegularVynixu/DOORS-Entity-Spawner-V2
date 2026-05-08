@@ -1,6 +1,6 @@
-# DOORS Entity Spawner V2
+# DOORS Entity Spawner
 
-An improved version of my original **DOORS Entity Spawner**.
+The latest version of my own **DOORS Entity Spawner**.
 
 It allows you to summon custom, fully configurable client-sided entities and experiment with your own mechanics or gamemodes for DOORS.
 
