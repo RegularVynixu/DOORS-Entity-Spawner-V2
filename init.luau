@@ -23,6 +23,8 @@ local TweenService = game:GetService("TweenService")
 
 -- \\ Variables // --
 
+local ROOT = "https://github.com/RegularVynixu/DOORS-Entity-Spawner-V2/raw/main"
+
 local LocalPlayer = Players.LocalPlayer
 local Character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
 local Humanoid = Character:WaitForChild("Humanoid")
@@ -35,12 +37,12 @@ local GameStats = ReplicatedStorage:WaitForChild("GameStats") :: Folder
 local CurrentRooms = workspace:WaitForChild("CurrentRooms") :: Folder
 
 local Assets = {
-	Repentance = LoadCustomInstance("https://github.com/RegularVynixu/DOORS-Entity-Spawner-V2/raw/main/Assets/Repentance.rbxm")
+	Repentance = LoadCustomInstance(ROOT.."/Assets/Repentance.rbxm"),
+	Earthquake = LoadCustomInstance(ROOT.."/Assets/Earthquake.rbxm")
 }
 local Modules = {
 	Module_Events = require(ReplicatedStorage.ModulesClient.Module_Events :: ModuleScript),
-	Main_Game = require(PlayerGui.MainUI.Initiator.Main_Game :: ModuleScript),
-	Earthquake = require(Remotes.RequestAsset:InvokeServer("Earthquake") :: ModuleScript)
+	Main_Game = require(PlayerGui.MainUI.Initiator.Main_Game :: ModuleScript)
 }
 local Storage = {
     Ambient = {},
@@ -595,6 +597,29 @@ local function EntityMoveTo(model: Model, cframe: CFrame, speed: number)
 	repeat RunService.Stepped:Wait() until reached
 end
 
+local function Earthquake()
+    Modules.Main_Game.camShaker:ShakeOnce(4, 12, 1, 5)
+    Modules.Main_Game.camShaker:ShakeOnce(10, 2, 3, 3)
+    Assets.Earthquake.SoundEarthquake:Play()
+    local v5 = CollectionService:GetTagged("PartCeiling")
+    local v6 = {}
+    for _, v7 in v5 do
+        local v8 = v7.Size.Magnitude * 0.7
+        local v9 = math.clamp(v8, 0, 150)
+        for _, v10 in Assets.Earthquake.Particles:GetChildren() do
+            local v11 = v10:Clone()
+            v11.Parent = v7
+            v11:Emit(v9 / 10)
+            v11.Enabled = true
+            table.insert(v6, v11)
+        end
+    end
+    task.wait(4)
+    for _, v12 in v6 do
+        v12.Enabled = false
+    end
+end
+
 -- \\ Setup // --
 
 for name, value in next, CONST.ATTR.PLAYER do
@@ -774,7 +799,7 @@ Module.Run = function(self, entity: any, copyEntity: boolean)
 
         -- Earthquake
         if config.Earthquake.Enabled then
-            task.defer(Modules.Earthquake, Modules.Main_Game, currentRoom)
+            task.spawn(Earthquake)
         end
     end
     
