@@ -439,9 +439,15 @@ local function DamagePlayer(entity: any)
     local config = entity.Config
     local newHealth = math.clamp(Humanoid.Health - config.Damage.Amount, 0, Humanoid.MaxHealth)
 
+    -- Update health
+    Humanoid.Health = newHealth
+    task.spawn(entity.RunCallback, entity, "OnDamagePlayer", newHealth)
+
     if newHealth == 0 then
         -- Death hints
         if #config.Death.Hints > 0 then
+            PlayerGui.MainUI.Death:GetPropertyChangedSignal("Visible"):Wait()
+
             -- Get death type
             local colour;
             for name, values in next, Storage.DeathTypes do
@@ -474,10 +480,6 @@ local function DamagePlayer(entity: any)
             GameStats["Player_".. LocalPlayer.Name].Total.DeathCause.Value = cause
         end
     end
-
-    -- Update health
-    Humanoid.Health = newHealth
-    task.spawn(entity.RunCallback, entity, "OnDamagePlayer", newHealth)
 end
 
 local function GetNodesFromRoom(room: Model, reversed: boolean): { BasePart }
