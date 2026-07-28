@@ -1088,7 +1088,7 @@ if not getgenv()._internal_vynixu_entity_spawner then
 	end)
 end
 
-Modules.Clear = function(self)
+Module.Clear = function(self)
     for _, entity in next, self.ActiveEntities do
         entity:Despawn()
     end
