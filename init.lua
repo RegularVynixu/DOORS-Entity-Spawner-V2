@@ -110,6 +110,7 @@ local CONST = {
 				Range = 100
 			},
 			Crucifixion = {
+				ItemToSeek = "Crucifix",
 				Type = "Curious", -- "Guiding"
 				Enabled = true,
 				Range = 40,
@@ -274,8 +275,8 @@ local function FixRoomLights(room: Model)
     end
 end
 
-local function PlayerHasItemEquipped(name: string): boolean
-	local tool = Character:FindFirstChildOfClass("Tool")
+local function PlayerHasOut(name: string): boolean
+	local tool = Character:FindFirstChild(name)
 	if tool and tool.Name == name then
 		return true, tool
 	end
@@ -478,8 +479,10 @@ local function DamagePlayer(entity: any)
         local cause = config.Death.Cause
         if typeof(cause) == "string" and cause ~= "" then
             GameStats["Player_".. LocalPlayer.Name].Total.DeathCause.Value = cause
-        end
-    end
+		elseif cause ~= "" then
+GameStats["Player_".. LocalPlayer.Name].Total.DeathCause.Value = config.Entity.Name
+		end
+	end
 end
 
 local function GetNodesFromRoom(room: Model, reversed: boolean): { BasePart }
@@ -882,7 +885,7 @@ Module.Run = function(self, entity: any, copyEntity: boolean)
                     and (charOrigin - origin).Magnitude <= crucifixion.Range
                     and inSight
                 then
-                    local hasTool, tool = PlayerHasItemEquipped("Crucifix")
+                    local hasTool, tool = PlayerHasOut(crucifixion.ItemToSeek)
                     if hasTool and tool and not model:GetAttribute("BeingBanished") then
                         if typeof(debug.CrucifixionOverwrite) == "function" then
                             -- Use custom crucifixion callback
