@@ -1012,6 +1012,7 @@ Module.Run = function(self, entity: any, copyEntity: boolean)
                             -- Use custom crucifixion callback
                             entity:RunCallback("CrucifixionOverwrite")
                         else
+                            tool:Destroy()
                             model:SetAttribute("Paused", true)
                             CrucifixEntity(entity)
                         end
