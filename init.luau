@@ -600,9 +600,10 @@ local function DamagePlayer(entity: any)
 
         -- Set death cause
         local cause = config.Death.Cause
-        if typeof(cause) == "string" and cause ~= "" then
-            GameStats["Player_".. LocalPlayer.Name].Total.DeathCause.Value = cause
+        if typeof(cause) ~= "string" or cause ~= "" then
+            cause = config.Entity.Name
         end
+        GameStats["Player_".. LocalPlayer.Name].Total.DeathCause.Value = cause
     end
 end
 
