@@ -49,7 +49,11 @@ local Storage = {
 	DeathTypes = {
 		["Yellow"] = {"yellow", "curious"},
 		["Blue"] = {"blue", "guiding"}
-	}
+	},
+    CrucifixTypes = {
+        ["guiding"] = { Color = Color3.fromRGB(137, 207, 255) },
+        ["curious"] = { Color = Color3.fromRGB(255, 227, 137) }
+    }
 }
 
 local CONST = {
@@ -110,7 +114,7 @@ local CONST = {
 				Range = 100
 			},
 			Crucifixion = {
-				Type = "Curious", -- "Guiding"
+				Type = "Guiding", -- "Curious"
 				Enabled = true,
 				Range = 40,
 				Resist = false,
@@ -344,7 +348,7 @@ local function CrucifixEntity(entity: any)
 	end
 
     -- \\ Set pentagram color
-    local Color = Color3.fromRGB(137, 207, 255)
+    local Color = Storage.CrucifixTypes[config.Crucifixion.Type:lower()].Color
 
     for _, v in next, Repentance:QueryDescendants(".GiveMeColor") do
         if v:IsA("Light") or v:IsA("BasePart") then
