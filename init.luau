@@ -49,7 +49,11 @@ local Storage = {
 	DeathTypes = {
 		["Yellow"] = {"yellow", "curious"},
 		["Blue"] = {"blue", "guiding"}
-	}
+	},
+    CrucifixTypes = {
+        ["guiding"] = { Color = Color3.fromRGB(137, 207, 255) },
+        ["curious"] = { Color = Color3.fromRGB(255, 227, 137) }
+    }
 }
 
 local CONST = {
@@ -110,7 +114,7 @@ local CONST = {
 				Range = 100
 			},
 			Crucifixion = {
-				Type = "Curious", -- "Guiding"
+				Type = "Guiding", -- "Curious"
 				Enabled = true,
 				Range = 40,
 				Resist = false,
@@ -274,9 +278,9 @@ local function FixRoomLights(room: Model)
     end
 end
 
-local function PlayerHasItemEquipped(name: string): boolean
+local function HasEquipped(name: string): boolean
 	local tool = Character:FindFirstChildOfClass("Tool")
-	if tool and tool.Name == name then
+	if tool and (tool.Name == name or tool:HasTag(name)) then
 		return true, tool
 	end
 	return false
@@ -344,7 +348,7 @@ local function CrucifixEntity(entity: any)
 	end
 
     -- \\ Set pentagram color
-    local Color = Color3.fromRGB(137, 207, 255)
+    local Color = Storage.CrucifixTypes[config.Crucifixion.Type:lower()].Color
 
     for _, v in next, Repentance:QueryDescendants(".GiveMeColor") do
         if v:IsA("Light") or v:IsA("BasePart") then
@@ -600,9 +604,10 @@ local function DamagePlayer(entity: any)
 
         -- Set death cause
         local cause = config.Death.Cause
-        if typeof(cause) == "string" and cause ~= "" then
-            GameStats["Player_".. LocalPlayer.Name].Total.DeathCause.Value = cause
+        if typeof(cause) ~= "string" or cause ~= "" then
+            cause = config.Entity.Name
         end
+        GameStats["Player_".. LocalPlayer.Name].Total.DeathCause.Value = cause
     end
 end
 
@@ -1006,7 +1011,7 @@ Module.Run = function(self, entity: any, copyEntity: boolean)
                     and (charOrigin - origin).Magnitude <= crucifixion.Range
                     and inSight
                 then
-                    local hasTool, tool = PlayerHasItemEquipped("Crucifix")
+                    local hasTool, tool = HasEquipped("Crucifix")
                     if hasTool and tool and not model:GetAttribute("BeingBanished") then
                         if typeof(debug.CrucifixionOverwrite) == "function" then
                             -- Use custom crucifixion callback

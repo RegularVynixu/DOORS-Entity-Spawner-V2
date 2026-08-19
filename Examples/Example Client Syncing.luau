@@ -53,6 +53,7 @@ local listOfEntities = {
             Amount = 125
         },
         Crucifixion = {
+            Type = "Guiding",
             Enabled = true,
             Range = 40,
             Resist = false,
