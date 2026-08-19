@@ -274,9 +274,9 @@ local function FixRoomLights(room: Model)
     end
 end
 
-local function PlayerHasItemEquipped(name: string): boolean
+local function HasEquipped(name: string): boolean
 	local tool = Character:FindFirstChildOfClass("Tool")
-	if tool and tool.Name == name then
+	if tool and (tool.Name == name or tool:HasTag(name)) then
 		return true, tool
 	end
 	return false
@@ -1007,7 +1007,7 @@ Module.Run = function(self, entity: any, copyEntity: boolean)
                     and (charOrigin - origin).Magnitude <= crucifixion.Range
                     and inSight
                 then
-                    local hasTool, tool = PlayerHasItemEquipped("Crucifix")
+                    local hasTool, tool = HasEquipped("Crucifix")
                     if hasTool and tool and not model:GetAttribute("BeingBanished") then
                         if typeof(debug.CrucifixionOverwrite) == "function" then
                             -- Use custom crucifixion callback
