@@ -45,6 +45,7 @@ local entity = Spawner:Create({
 		Amount = 125
 	},
 	Crucifixion = {
+        Type = "Curious",
 		Enabled = true,
 		Range = 40,
 		Resist = false,
